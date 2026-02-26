@@ -2,6 +2,8 @@ package br.com.senai.clinica.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ClinicaRepository extends JpaRepository<Clinica, Long>{
+import br.com.senai.clinica.entity.Dono;
+
+public interface ClinicaRepository extends JpaRepository <Dono, Long>{
     
 }
