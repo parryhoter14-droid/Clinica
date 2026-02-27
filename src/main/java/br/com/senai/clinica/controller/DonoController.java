@@ -8,35 +8,35 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.senai.clinica.entity.Dono;
 import br.com.senai.clinica.exception.Response;
-import br.com.senai.clinica.repository.ClinicaRepository;
+import br.com.senai.clinica.repository.DonoRepository;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
 @RequestMapping
 public class DonoController {
 
-    @Autowired
-    private ClinicaRepository repository;
+  @Autowired
+  private DonoRepository repository;
 
-    @PostMapping
-    public Dono criaClinica(@RequestBody Dono entity){
-        Dono saved = repository.save(entity);
-        return saved;
-    }
-    
-    @GetMapping
-    public List<Dono> returnTodos(){
-        return repository.findAll();
-    }
+  @PostMapping
+  public Dono criaClinica(@RequestBody Dono entity) {
+    Dono saved = repository.save(entity);
+    return saved;
+  }
 
-     @PutMapping("/{id}")
-  public  Response Atualizar(@PathVariable Long id, @RequestBody Dono entity) {
+  @GetMapping
+  public List<Dono> getAllDonos() {
+    return repository.findAll();
+  }
+
+  @PutMapping("/{id}")
+  public Response Atualizar(@PathVariable Long id, @RequestBody Dono entity) {
 
     if (!repository.existsById(id)) {
       return new Response(404, "Produto não encontrado");
@@ -48,8 +48,8 @@ public class DonoController {
       clinicaAntigo.setNome(entity.getNome());
     }
 
-    if (entity.getTelefone() != null) {
-      clinicaAntigo.setTelefone(entity.getTelefone());
+    if (entity.getCpf() != null) {
+      clinicaAntigo.setCpf(entity.getCpf());
     }
 
     repository.save(clinicaAntigo);
@@ -58,4 +58,12 @@ public class DonoController {
 
   }
 
+  @DeleteMapping("/{id}")
+    public Response deleteDono(@PathVariable Long id) {
+        if (!repository.existsById(id)) {
+            return new Response(404, "Responsável não encontrado");
+        }
+        repository.deleteById(id);
+        return new Response(204, "Produto deletado com sucesso");
+    }
 }

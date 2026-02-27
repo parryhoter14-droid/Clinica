@@ -6,10 +6,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 @Entity
-public class Dono {
+public class Veterinario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,11 +21,16 @@ public class Dono {
     private String nome;
 
     @NotBlank(message = "Informe o seu cpf sem pontos")
-    @Size(min = 11, max = 11, message = "Não informe traços e pontos")
-    private String cpf;
+    @Size(min = 13, max = 13, message = "Não informe traços e pontos")
+    private String crmv;
+
+    @NotBlank(message = "Informe o seu CEP")
+    @Size(min = 4, max = 80, message = "Não informe traços e pontos")
+    private String especializacao;
 
     @NotNull
-    private Boolean status;
+    @Positive
+    private Integer jornada;
     public Long getId() {
         return id;
     }
@@ -37,18 +43,22 @@ public class Dono {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public String getCpf() {
-        return cpf;
+    public String getCrmv() {
+        return crmv;
     }
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setCrmv(String crmv) {
+        this.crmv = crmv;
     }
-    public Boolean getStatus() {
-        return status;
+    public String getEspecializacao() {
+        return especializacao;
     }
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setEspecializacao(String especializacao) {
+        this.especializacao = especializacao;
     }
-
+    public Integer getJornada() {
+        return jornada;
+    }
+    public void setJornada(Integer jornada) {
+        this.jornada = jornada;
+    }
 }
-
