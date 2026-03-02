@@ -38,7 +38,7 @@ public class AnimalController {
   public Response Atualizar(@PathVariable Long id, @RequestBody Animal entity) {
 
     if (!repository.existsById(id)) {
-      return new Response(404, "Animal não encontrado");
+      return new Response(404, "Animal não encontrado");//Quando tentar realiza por exemplo a atualização de um animal que não existe
     }
 
     Animal animalAntigo = repository.findById(id).get();
@@ -76,11 +76,11 @@ public class AnimalController {
   public Response deleteAnimal(@PathVariable Long id) {
 
     if (!repository.existsById(id)) {
-      return new Response(404, "Animal não encontrado");
+      return new Response(404, "Animal não encontrado");//Quando tentar deletar um animal que não existe
     }
 
     repository.deleteById(id);
 
-    return new Response(204, "Animal deletado com sucesso");
+    return new Response(204, "Animal deletado com sucesso");// O bicho foi deletado com sucesso ma tal ato não tem um reorno portanto recebe como se fosse um "erro"
   }
 }
