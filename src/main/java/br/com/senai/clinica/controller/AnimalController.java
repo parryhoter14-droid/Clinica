@@ -69,7 +69,7 @@ public class AnimalController {
 
     repository.save(animalAntigo);
 
-    return new Response(200, "Animal atualizado!");
+    return new Response(200, "Animal atualizado!");//O animal foi encontrado e atualizado
   }
 
   @DeleteMapping("/{id}")
