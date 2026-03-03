@@ -24,11 +24,11 @@ public class AnimalController {
   private AnimalRepository repository;
 
   @PostMapping
-  public Animal criaAnimal(@RequestBody Animal entity) {
-    Animal saved = repository.save(entity);
-    return saved;
-  }
-
+  public Response cadastrarAnimal(@Valid @RequestBody Animal animal) {
+        repository.save(animal);
+        return new Response(201, "Animal cadastrado com sucesso!");
+    }
+  
   @GetMapping
   public List<Animal> returnTodos() {
     return repository.findAll();
