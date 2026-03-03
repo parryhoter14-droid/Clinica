@@ -24,15 +24,20 @@ public class VeterinarioController {
   private VeterinarioRepository repository;
 
   @PostMapping
-  public Veterinario criarVeterinario(@RequestBody Veterinario entity) {
-    return repository.save(entity);
-  }
+  public Response cadastrarVeterinario(
+            @Valid @org.springframework.web.bind.annotation.RequestBody Veterinario veterinario) {
 
-  @GetMapping
-  public List<Veterinario> listarTodos() {
-    return repository.findAll();
-  }
+        boolean crmvJaExiste = repository.existsByCrmv(veterinario.getCrmv());
 
+        if (crmvJaExiste) {
+            return new Response(409, "Já existe um veterinário cadastrado com este CRMV!");
+        }
+        // CONFLICT CODE 409 - Tentativa de cadastrar algo que já existe
+
+        repository.save(veterinario);
+        return new Response(201, "Veterinario(a) cadastrado(a) com sucesso!");
+    }
+  
   @PutMapping("/{id}")
   public Response atualizar(@PathVariable Long id, @RequestBody Veterinario entity) {
 
