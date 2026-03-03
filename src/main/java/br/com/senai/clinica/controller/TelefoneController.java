@@ -24,9 +24,10 @@ public class TelefoneController {
   private TelefoneRepository repository;
 
   @PostMapping
-  public Telefone criarTelefone(@RequestBody Telefone entity) {
-    return repository.save(entity);
-  }
+   public Response cadastrarTelefone(@Valid @RequestBody Telefone telefone) {
+        repository.save(telefone);
+        return new Response(201, "Telefone cadastrado com sucesso!");
+    }
 
   @GetMapping
   public List<Telefone> listarTodos() {
