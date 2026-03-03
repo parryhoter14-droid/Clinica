@@ -24,10 +24,10 @@ public class ConsultaController {
   private ConsultaRepository repository;
 
   @PostMapping
-  public Consulta criarConsulta(@RequestBody Consulta entity) {
-    return repository.save(entity);
-  }
-
+  public Response cadastrarConsulta(@Valid @RequestBody Consulta consulta) {
+        repository.save(consulta);
+        return new Response(201, "Consulta cadastrada com sucesso!");
+    }
   @GetMapping
   public List<Consulta> listarTodas() {
     return repository.findAll();
