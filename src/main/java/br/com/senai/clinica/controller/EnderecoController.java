@@ -24,10 +24,11 @@ public class EnderecoController {
   private EnderecoRepository repository;
 
   @PostMapping
-  public Endereco criarEndereco(@RequestBody Endereco entity) {
-    return repository.save(entity);
-  }
-
+  public Response cadastrarEndereco(@Valid @RequestBody Endereco endereco) {
+        repository.save(endereco);
+        return new Response(201, "Endereço cadastrado(a) com sucesso!");
+    }
+  
   @GetMapping
   public List<Endereco> listarTodos() {
     return repository.findAll();
